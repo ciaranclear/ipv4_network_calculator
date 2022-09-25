@@ -52,10 +52,15 @@ def networks_fit(
     networks = order_networks(networks)
     addresses = 0
     for network in networks:
-        addresses += (min_hosts(network[1] + 2, cidr))
+        #addresses += (min_hosts(network[1] + 2, cidr))
+        addresses += (min_hosts(network[1], cidr))
     max_addresses = IPv4SubnetMask.number_of_hosts(subnet_mask) + 2
     if addresses > max_addresses:
-        msg = f""
+        min_mask = IPv4SubnetMask.hosts_to_subnet_mask(addresses, cidr)
+        msg = (f"The maximum address space {max_addresses} "
+               f"for subnet mask {subnet_mask} has been exceeded. "
+               f"Subnet mask {min_mask} required to accomodate "
+               f"a minimum of {addresses} addresses.")
         raise IPv4NetworksError(msg)
     return True
 
