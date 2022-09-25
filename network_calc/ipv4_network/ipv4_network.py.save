@@ -1,0 +1,11 @@
+
+
+class IPv4NetworkError(Exception):
+    def __init__(self, message):
+        super().__init__(message)
+
+
+class IPv4Network:
+
+    def __init__(self, network_address, subnet_mask, inner_subnet_mask=None):
+        pass
